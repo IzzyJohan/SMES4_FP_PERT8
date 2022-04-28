@@ -7,7 +7,7 @@ function AddMovieForm(props) {
     // Destructing props
     const { movies, setMovies } = props;
 
-    // Membuat state object form
+    // Membuat state object 
     const [formData, setFormData] = useState({
         title: "",
         date: "",
@@ -25,36 +25,51 @@ function AddMovieForm(props) {
         });
     }
 
-    // Membuat state title, date, genre, dan poster error/empty
-    const [isTitleError, setIsTitleError] = useState(false);
-    const [isDateError, setIsDateError] = useState(false);
-    const [isPosterError, setIsPosterError] = useState(false);
+    // Membuat state object 
+    const [formError, setFormError] = useState({
+        isTitleError:false,
+        isDateError:false,
+        isPosterError:false,
+    })
 
-    const {title, date, poster, genre} = formData;
+    const {isTitleError, isDateError, isPosterError} = formError
 
-    function validate() {
-        // Jika title kosong, maka set error title true
-        if (title === "") {
-            setIsTitleError(true);
+    const {title, date, genre, poster} = formData
+
+    function validate(){
+         //jika title kosong
+        if(title === ""){
+            setFormError({
+                ...formError,
+                isTitleError:true,
+            })
             return false;
         }
-        // Jika date kosong, maka set error date true
-        else if (date === "") {
-            setIsTitleError(false);
-            setIsDateError(true);
-            return false;       
-        }
-        // Jika poster kosong, maka set error poster true
-        else if (poster === "") {
-            setIsTitleError(false);
-            setIsDateError(false);
-            setIsPosterError(true);
+        //jika date kosong
+        else if(date === ""){
+            setFormError({
+                ...formError,
+                isTitleError:false,
+                isDateError:true,
+            })
             return false;
         }
-        else {
-            setIsTitleError(false);
-            setIsDateError(false);
-            setIsPosterError(false);
+        //jika poster kosong
+        else if(poster === ""){
+            setFormError({
+                ...formError,
+                isTitleError:false,
+                isDateError:false,
+                isPosterError:true
+            })
+            return false;
+        }else{
+            setFormError({
+                ...formError,
+                isTitleError:false,
+                isDateError:false,
+                isPosterError:false
+            })
             return true;
         }
     }
@@ -80,8 +95,6 @@ function AddMovieForm(props) {
 
         validate() && addMovie();
     }
-
-    console.log(movies);
 
     return(
             <div className={styles.container}>
