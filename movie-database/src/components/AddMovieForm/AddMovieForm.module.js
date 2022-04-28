@@ -7,7 +7,7 @@ function AddMovieForm(props) {
     // Destructing props
     const { movies, setMovies } = props;
 
-    // Membuat state object 
+    // Membuat state object form
     const [formData, setFormData] = useState({
         title: "",
         date: "",
